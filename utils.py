@@ -1,8 +1,7 @@
 from connectors.core.connector import Connector, get_logger, ConnectorError
 from netaddr import *
-import copy
 
-logger = get_logger('cybereasonTI')
+logger = get_logger('Cybereason-Threat-Intel')
 
 #Utils
 def payload_builder(params):

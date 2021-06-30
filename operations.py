@@ -4,10 +4,8 @@ from connectors.core.connector import get_logger, ConnectorError
 
 import requests
 import logging
-import arrow
-import jmespath
 
-logger = get_logger('CybereasonTI')
+logger = get_logger('Cybereason-Threat-Intel')
 logger.setLevel(logging.DEBUG)# Comment for prod
 
 class CybereasonTIMC(object):
@@ -153,9 +151,3 @@ def _check_health(config):
     except Exception as Err:
         logger.exception('Health Check Error:{}'.format(Err))
         raise ConnectorError('Health Check Error:{}'.format(Err))    
-
-operations = {
-    'file_batch': _run_operation,
-    'ip_batch': _run_operation,
-    'domain_batch': _run_operation,
-}
