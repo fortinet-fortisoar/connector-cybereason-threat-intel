@@ -144,9 +144,6 @@ def _check_health(config):
         server_data = cr_object.make_rest_call(endpoint='/rest/download_v1/port', json={})
         cr_object.close()
         return server_data
-        # if server_config['status'] == 'Failure':
-        #     logger.exception('Authentication Error, Check URL and Credentials')
-        #     raise ConnectorError('Authentication Error, Check URL and Credentials')
 
     except Exception as Err:
         logger.exception('Health Check Error:{}'.format(Err))
