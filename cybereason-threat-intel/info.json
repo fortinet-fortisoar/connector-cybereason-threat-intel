@@ -1,0 +1,139 @@
+{
+    "name": "cybereason-threat-intel",
+    "version": "1.0.0",
+    "label": "Cybereason Threat Intel",
+    "description": "Access the Cybereason global threat intelligence database on file hashes, IP addresses, and domains",
+    "publisher": "Community",
+    "icon_small_name": "small_icon.png",
+    "icon_large_name": "large_icon.png",
+    "configuration":
+    {
+        "fields":
+        [
+            {
+                "title": "Cybereason Server URL",
+                "name": "server",
+                "description": "Cybereason Server URL",
+                "required": true,
+                "editable": true,
+                "visible": true,
+                "value": "",
+                "type": "text"
+            },
+            {
+                "title": "Cybereason Threat Intel URL",
+                "name": "threat_intel_server",
+                "description": "Cybereason Threat Intel IP/Url",
+                "required": true,
+                "editable": true,
+                "visible": true,
+                "value": "https://sage.cybereason.com",
+                "type": "text"
+            },
+            {
+                "title": "Username",
+                "name": "username",
+                "description": "Cybereason Username",
+                "required": true,
+                "editable": true,
+                "visible": true,
+                "value": "",
+                "type": "text"
+            },
+            {
+                "title": "Password",
+                "name": "password",
+                "description": "Cybereason Password",
+                "required": true,
+                "editable": true,
+                "visible": true,
+                "type": "password"
+            },
+            {
+                "title": "Verify SSL",
+                "name": "verify_ssl",
+                "required": false,
+                "editable": true,
+                "visible": true,
+                "type": "checkbox"
+            }
+        ]
+    },
+    "operations":
+    [
+        {
+            "operation": "file_batch",
+            "title": "Get File Reputation",
+            "description": "Returns details on a file’s reputation based on the Cybereason threat intelligence service",
+            "category": "enrichment",
+            "annotation": "file_batch",
+            "output_schema":
+            {},
+            "enabled": true,
+            "parameters":
+            [
+                {
+                    "title": "File Hash",
+                    "description": "File hash(s), md5 or sha1",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "placeholder": "0aae5873aa0e9f80d3fa41524bef6825723b9e87,14e25873aa0e9f80d3fa41524bef6825723bwe45",
+                    "type": "text",
+                    "name": "keys"
+                }
+            ]
+        },
+        {
+            "operation": "ip_batch",
+            "title": "Get IP Reputation",
+            "description": "Returns details on IP address reputations based on the Cybereason threat intelligence service",
+            "category": "enrichment",
+            "annotation": "ip_batch",
+            "output_schema":
+            {},
+            "enabled": true,
+            "parameters":
+            [
+                {
+                    "title": "IP Address",
+                    "description": "IP Address in ipv4 or ipv6",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "placeholder": "10.1.1.1,192.168.10.10,172.16.1.30...",
+                    "type": "text",
+                    "name": "keys"
+                }
+            ]
+        },
+        {
+            "operation": "domain_batch",
+            "title": "Get Domain Reputation",
+            "description": "Returns details on domain reputations based on the Cybereason threat intelligence service",
+            "category": "enrichment",
+            "annotation": "domain_batch",
+            "output_schema":
+            {},
+            "enabled": true,
+            "parameters":
+            [
+                {
+                    "title": "Domain Name",
+                    "description": "Domain Name",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "placeholder": "domain1.com,domain2.com",
+                    "type": "text",
+                    "name": "keys"
+                }
+            ]
+        }
+    ],
+    "category": "Information",
+    "active": true,
+    "cs_compatible": true,
+    "system": false,
+    "help_online": "https://docs.fortinet.com/document/cybereason/1.0.0/cybereason-threat-intel"
+}
