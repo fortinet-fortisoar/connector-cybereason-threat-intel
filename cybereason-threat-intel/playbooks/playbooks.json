@@ -2,928 +2,259 @@
   "type": "workflow_collections",
   "data": [
     {
-      "@type": "WorkflowCollection",
-      "name": "Sample - Cybereason - 1.0.0",
-      "description": null,
+      "name": "Sample - Cybereason Threat Intel - 1.0.0",
+      "description": "Access the Cybereason global threat intelligence database on file hashes, IP addresses, and domains.",
       "visible": true,
       "image": null,
-      "uuid": "be85459d-7b70-4994-b9ed-b8b4f7bda5db",
-      "id": 97,
-      "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-      "createDate": 1624464873,
-      "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-      "modifyDate": 1624464873,
+      "uuid": "9fbcc1d4-a5cb-4e47-9e5c-b71a0bfec6eb",
+      "@type": "WorkflowCollection",
       "recordTags": [],
       "workflows": [
         {
           "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "Kill Process",
-          "aliasName": null,
-          "tag": null,
-          "description": "",
-          "isActive": true,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1624468182,
-          "collection": "/api/3/workflow_collections/be85459d-7b70-4994-b9ed-b8b4f7bda5db",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/5642fb67-a7e6-4c92-a9ad-7a212b7f5489",
+          "uuid": "4b68011b-3372-4309-bbc5-5be601aba8a5",
+          "collection": "/api/3/workflow_collections/9fbcc1d4-a5cb-4e47-9e5c-b71a0bfec6eb",
           "steps": [
             {
+              "uuid": "e6547d8b-b4fe-40f2-adda-c72177ef4eb0",
               "@type": "WorkflowStep",
-              "name": "Start",
+              "name": "Alerts",
               "description": null,
+              "status": null,
               "arguments": {
-                "route": "604415e6-b164-4937-812f-92303dbec219",
+                "route": "56e1f771-7e03-4565-89c8-21846dd93dd4",
+                "title": "Cybereason Threat Intel: Get File Reputation",
                 "resources": [
-                  "assets"
+                  "alerts"
                 ],
                 "inputVariables": [],
                 "step_variables": {
                   "input": {
-                    "records": "{{vars.input.records}}"
+                    "records": "{{vars.input.records[0]}}"
                   }
                 },
-                "executeButtonText": "Execute",
                 "noRecordExecution": true,
                 "singleRecordExecution": false
               },
-              "status": null,
-              "top": "30",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "uuid": "5642fb67-a7e6-4c92-a9ad-7a212b7f5489",
-              "id": 4738
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
+              "uuid": "0805ef1d-8e2f-40f2-aab1-bf4f16095044",
               "@type": "WorkflowStep",
-              "name": "Kill Process",
+              "name": "Get File Reputation",
               "description": null,
+              "status": null,
               "arguments": {
-                "name": "Cybereason",
-                "config": "d88b6929-235e-4543-abe3-d9fcc18f9b5f",
+                "name": "Cybereason Threat Intel",
+                "config": "",
                 "params": {
-                  "machine_guid": "27207767.1198775089551518743",
-                  "process_guid": "27207767.677186365172174101"
+                  "keys": ""
                 },
                 "version": "1.0.0",
-                "connector": "cybereason",
-                "operation": "kill_process",
-                "operationTitle": "Kill Process On Endpoint",
-                "pickFromTenant": false,
-                "step_variables": []
+                "connector": "cybereason-threat-intel",
+                "operation": "file_batch",
+                "operationTitle": "Get File Reputation",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
               },
-              "status": null,
-              "top": "165",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "uuid": "ee17b3de-9edb-4508-bddd-5f48e2d96ab1",
-              "id": 4739
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
             }
           ],
+          "triggerLimit": null,
+          "description": "Returns details on a file\u2019s reputation based on the Cybereason threat intelligence service",
+          "name": "Get File Reputation",
+          "tag": "#Cybereason Threat Intel",
+          "isActive": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/e6547d8b-b4fe-40f2-adda-c72177ef4eb0",
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "name": "Start -> Get Sensors",
-              "targetStep": "/api/3/workflow_steps/ee17b3de-9edb-4508-bddd-5f48e2d96ab1",
-              "sourceStep": "/api/3/workflow_steps/5642fb67-a7e6-4c92-a9ad-7a212b7f5489",
+              "uuid": "0ae8edc4-af0f-4360-a085-70fdc3cc0b04",
               "label": null,
               "isExecuted": false,
-              "uuid": "6afcb0cc-74ea-4347-85fa-098818318d43"
+              "name": "Alerts -> Get File Reputation",
+              "sourceStep": "/api/3/workflow_steps/e6547d8b-b4fe-40f2-adda-c72177ef4eb0",
+              "targetStep": "/api/3/workflow_steps/0805ef1d-8e2f-40f2-aab1-bf4f16095044"
             }
           ],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "0a6d6928-e20f-48b4-a10a-ccedf00fbfa1",
-          "recordTags": [],
-          "id": 1151,
-          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "createDate": 1624467837,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1624468184,
-          "owners": [],
-          "isPrivate": false
+          "recordTags": [
+            "cybereason-threat-intel",
+            "Cybereason"
+          ]
         },
         {
           "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "Isolate Machine by its IP Address",
-          "aliasName": null,
-          "tag": null,
-          "description": "",
-          "isActive": true,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1624468332,
-          "collection": "/api/3/workflow_collections/be85459d-7b70-4994-b9ed-b8b4f7bda5db",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/1a357e7e-0c30-47ff-a003-c271d5e78864",
+          "uuid": "e7e5ed09-d7f5-41b5-8513-bf9f99ae6a3e",
+          "collection": "/api/3/workflow_collections/9fbcc1d4-a5cb-4e47-9e5c-b71a0bfec6eb",
           "steps": [
             {
+              "uuid": "c8e5c38b-ceae-4a91-90ed-ee17c21dbc99",
               "@type": "WorkflowStep",
-              "name": "Start",
+              "name": "Alerts",
               "description": null,
+              "status": null,
               "arguments": {
-                "route": "2d057882-6d41-4b50-aaa7-7c0700c93e35",
+                "route": "3506f09f-b620-4b09-9fd7-73478ca62713",
+                "title": "Cybereason Threat Intel: Get IP Reputation",
                 "resources": [
-                  "assets"
+                  "alerts"
                 ],
                 "inputVariables": [],
                 "step_variables": {
                   "input": {
-                    "records": "{{vars.input.records}}"
+                    "records": "{{vars.input.records[0]}}"
                   }
                 },
-                "executeButtonText": "Execute",
                 "noRecordExecution": true,
                 "singleRecordExecution": false
               },
-              "status": null,
-              "top": "30",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "uuid": "1a357e7e-0c30-47ff-a003-c271d5e78864",
-              "id": 4732
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
+              "uuid": "37dff69c-ddcc-4e70-bc49-53a08f49d12e",
               "@type": "WorkflowStep",
-              "name": "Isolate Machine",
+              "name": "Get IP Reputation",
               "description": null,
+              "status": null,
               "arguments": {
-                "name": "Cybereason",
-                "config": "d88b6929-235e-4543-abe3-d9fcc18f9b5f",
+                "name": "Cybereason Threat Intel",
+                "config": "",
                 "params": {
-                  "ip_addresses": "192.168.253.222"
+                  "keys": ""
                 },
                 "version": "1.0.0",
-                "connector": "cybereason",
-                "operation": "isolate_sensor_by_ip",
-                "operationTitle": "Isolate Malop Machine by IP Address",
-                "pickFromTenant": false,
-                "step_variables": []
+                "connector": "cybereason-threat-intel",
+                "operation": "ip_batch",
+                "operationTitle": "Get IP Reputation",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
               },
-              "status": null,
-              "top": "165",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "uuid": "d6c41500-d0de-4b5d-847f-14df1b86a58c",
-              "id": 4733
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
             }
           ],
+          "triggerLimit": null,
+          "description": "Returns details on IP address reputations based on the Cybereason threat intelligence service",
+          "name": "Get IP Reputation",
+          "tag": "#Cybereason Threat Intel",
+          "isActive": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/c8e5c38b-ceae-4a91-90ed-ee17c21dbc99",
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "name": "Start -> Get Sensors",
-              "targetStep": "/api/3/workflow_steps/d6c41500-d0de-4b5d-847f-14df1b86a58c",
-              "sourceStep": "/api/3/workflow_steps/1a357e7e-0c30-47ff-a003-c271d5e78864",
+              "uuid": "3f233396-fbf3-47f8-83d4-d25426158d66",
               "label": null,
               "isExecuted": false,
-              "uuid": "e33556a2-1c8a-4720-9021-e94a7da38ed4"
+              "name": "Alerts -> Get IP Reputation",
+              "sourceStep": "/api/3/workflow_steps/c8e5c38b-ceae-4a91-90ed-ee17c21dbc99",
+              "targetStep": "/api/3/workflow_steps/37dff69c-ddcc-4e70-bc49-53a08f49d12e"
             }
           ],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "105d9387-b245-4be6-ab20-c3742ad81987",
-          "recordTags": [],
-          "id": 1148,
-          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "createDate": 1624466512,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1624468332,
-          "owners": [],
-          "isPrivate": false
+          "recordTags": [
+            "cybereason-threat-intel",
+            "Cybereason"
+          ]
         },
         {
           "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "UnIsolate Malop Machine by Pylum ID",
-          "aliasName": null,
-          "tag": null,
-          "description": "",
-          "isActive": true,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1624468318,
-          "collection": "/api/3/workflow_collections/be85459d-7b70-4994-b9ed-b8b4f7bda5db",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/bd738e31-14f0-4918-8a25-baecf49e458e",
+          "uuid": "5e8b27ac-b8ea-4e03-b34d-1b52894815b6",
+          "collection": "/api/3/workflow_collections/9fbcc1d4-a5cb-4e47-9e5c-b71a0bfec6eb",
           "steps": [
             {
+              "uuid": "713f3714-c518-41b4-8520-d06b4ee3d142",
               "@type": "WorkflowStep",
-              "name": "UnIsolate Machine",
+              "name": "Alerts",
               "description": null,
+              "status": null,
               "arguments": {
-                "name": "Cybereason",
-                "config": "d88b6929-235e-4543-abe3-d9fcc18f9b5f",
+                "route": "f9ed6132-e337-44fb-bc1d-1bf5128dcc29",
+                "title": "Cybereason Threat Intel: Get Domain Reputation",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "4b8676c8-21fd-4820-a31a-7faadc697106",
+              "@type": "WorkflowStep",
+              "name": "Get Domain Reputation",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Cybereason Threat Intel",
+                "config": "",
                 "params": {
-                  "pylumIds": "PYLUMCLIENT_DAEGU_DESKTOP-VHK6KSU_000C2918A4A8"
+                  "keys": ""
                 },
                 "version": "1.0.0",
-                "connector": "cybereason",
-                "operation": "unisolate_sensor_by_pylum_id",
-                "operationTitle": "Un-Isolate Malop Machine by Pylum ID",
-                "pickFromTenant": false,
-                "step_variables": []
-              },
-              "status": null,
-              "top": "165",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "uuid": "cc099271-3493-4fbe-85d3-942ddea60123",
-              "id": 4734
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "arguments": {
-                "route": "e032ec12-b1bc-4fc5-8ec0-d7b0437af754",
-                "resources": [
-                  "assets"
-                ],
-                "inputVariables": [],
+                "connector": "cybereason-threat-intel",
+                "operation": "domain_batch",
+                "operationTitle": "Get Domain Reputation",
                 "step_variables": {
-                  "input": {
-                    "records": "{{vars.input.records}}"
-                  }
-                },
-                "executeButtonText": "Execute",
-                "noRecordExecution": true,
-                "singleRecordExecution": false
+                  "output_data": "{{vars.result}}"
+                }
               },
-              "status": null,
-              "top": "30",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "uuid": "bd738e31-14f0-4918-8a25-baecf49e458e",
-              "id": 4735
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
             }
           ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Get Sensors",
-              "targetStep": "/api/3/workflow_steps/cc099271-3493-4fbe-85d3-942ddea60123",
-              "sourceStep": "/api/3/workflow_steps/bd738e31-14f0-4918-8a25-baecf49e458e",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "389ca8f8-0d11-412a-a2f9-4563e3ea5a38"
-            }
-          ],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "2341e338-d3ca-41f7-9aca-06c2c0d0eb55",
-          "recordTags": [],
-          "id": 1149,
-          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "createDate": 1624467246,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1624468319,
-          "owners": [],
-          "isPrivate": false
-        },
-        {
-          "@type": "Workflow",
           "triggerLimit": null,
-          "name": "Get Sensors",
-          "aliasName": null,
-          "tag": null,
-          "description": "Fetch Machine(s)",
-          "isActive": true,
+          "description": "Returns details on domain reputations based on the Cybereason threat intelligence service",
+          "name": "Get Domain Reputation",
+          "tag": "#Cybereason Threat Intel",
+          "isActive": false,
           "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
           "parameters": [],
           "synchronous": false,
-          "lastModifyDate": 1624468439,
-          "collection": "/api/3/workflow_collections/be85459d-7b70-4994-b9ed-b8b4f7bda5db",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/51313cc6-d734-4c71-b929-866ac4e9d6f9",
-          "steps": [
-            {
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "arguments": {
-                "route": "63206ca1-57c4-4473-bb93-dd6f040ad31e",
-                "resources": [
-                  "assets"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "records": "{{vars.input.records}}"
-                  }
-                },
-                "executeButtonText": "Execute",
-                "noRecordExecution": true,
-                "singleRecordExecution": false
-              },
-              "status": null,
-              "top": "30",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "uuid": "51313cc6-d734-4c71-b929-866ac4e9d6f9",
-              "id": 4720
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Get Sensors",
-              "description": null,
-              "arguments": {
-                "name": "Cybereason",
-                "config": "d88b6929-235e-4543-abe3-d9fcc18f9b5f",
-                "params": {
-                  "limit": 2,
-                  "offset": 0,
-                  "raw_filters": "",
-                  "sortDirection": "ASC",
-                  "filter.customTags": "",
-                  "filter.department": "",
-                  "filter.externalIpAddress": "",
-                  "filter.internalIpAddress": ""
-                },
-                "version": "1.0.0",
-                "connector": "cybereason",
-                "operation": "get_sensors",
-                "operationTitle": "Query Sensors",
-                "pickFromTenant": false,
-                "step_variables": []
-              },
-              "status": null,
-              "top": "165",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "uuid": "66b24e42-840f-449e-a3a6-4bee5730d15b",
-              "id": 4721
-            }
-          ],
+          "triggerStep": "/api/3/workflow_steps/713f3714-c518-41b4-8520-d06b4ee3d142",
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "name": "Start -> Get Sensors",
-              "targetStep": "/api/3/workflow_steps/66b24e42-840f-449e-a3a6-4bee5730d15b",
-              "sourceStep": "/api/3/workflow_steps/51313cc6-d734-4c71-b929-866ac4e9d6f9",
+              "uuid": "96b0a721-e8e7-41a3-922b-38e5fc392a2e",
               "label": null,
               "isExecuted": false,
-              "uuid": "916adcc1-a70b-4747-af5a-74de62c067a8"
+              "name": "Alerts -> Get Domain Reputation",
+              "sourceStep": "/api/3/workflow_steps/713f3714-c518-41b4-8520-d06b4ee3d142",
+              "targetStep": "/api/3/workflow_steps/4b8676c8-21fd-4820-a31a-7faadc697106"
             }
           ],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "4a4586b9-1419-428b-a8b3-f581364ea562",
-          "recordTags": [],
-          "id": 1142,
-          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "createDate": 1624464873,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1624468439,
-          "owners": [],
-          "isPrivate": false
-        },
-        {
-          "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "Get Incidents",
-          "aliasName": null,
-          "tag": null,
-          "description": "Fetch Incidents for a time range",
-          "isActive": true,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1624467917,
-          "collection": "/api/3/workflow_collections/be85459d-7b70-4994-b9ed-b8b4f7bda5db",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/e10a7082-b9af-4acf-a808-713923ab1e64",
-          "steps": [
-            {
-              "@type": "WorkflowStep",
-              "name": "Get Incidents",
-              "description": null,
-              "arguments": {
-                "name": "Cybereason",
-                "config": "d88b6929-235e-4543-abe3-d9fcc18f9b5f",
-                "params": {
-                  "end_time": "{{arrow.utcnow().format(\"YYYY-MM-DDTHH:mm:ss.SSS\")}}Z",
-                  "start_time": "{{arrow.utcnow().shift(hours=-24).format(\"YYYY-MM-DDTHH:mm:ss.SSS\")}}Z"
-                },
-                "version": "1.0.0",
-                "connector": "cybereason",
-                "operation": "get_malops",
-                "operationTitle": "Get Incidents",
-                "pickFromTenant": false,
-                "step_variables": []
-              },
-              "status": null,
-              "top": "165",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "uuid": "d380c91f-facf-424a-ac3a-6e6372a70290",
-              "id": 4722
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "arguments": {
-                "route": "fa3c2020-ca06-4621-821c-7b00c7ef28c5",
-                "resources": [
-                  "assets"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "records": "{{vars.input.records}}"
-                  }
-                },
-                "executeButtonText": "Execute",
-                "noRecordExecution": true,
-                "singleRecordExecution": false
-              },
-              "status": null,
-              "top": "30",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "uuid": "e10a7082-b9af-4acf-a808-713923ab1e64",
-              "id": 4723
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Get Sensors",
-              "targetStep": "/api/3/workflow_steps/d380c91f-facf-424a-ac3a-6e6372a70290",
-              "sourceStep": "/api/3/workflow_steps/e10a7082-b9af-4acf-a808-713923ab1e64",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "18db7b49-badc-4fd1-8ea5-f01fefe3f039"
-            }
-          ],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "8c68e4f3-8017-449d-8842-ef4a40a0adf7",
-          "recordTags": [],
-          "id": 1143,
-          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "createDate": 1624464873,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1624467918,
-          "owners": [],
-          "isPrivate": false
-        },
-        {
-          "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "Get File by its Hashcode",
-          "aliasName": null,
-          "tag": null,
-          "description": "",
-          "isActive": true,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1624467898,
-          "collection": "/api/3/workflow_collections/be85459d-7b70-4994-b9ed-b8b4f7bda5db",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/45917621-34af-49c2-a689-bc700f41b235",
-          "steps": [
-            {
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "arguments": {
-                "route": "e6b24b36-2164-4e13-8c54-904353b2df7a",
-                "resources": [
-                  "assets"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "records": "{{vars.input.records}}"
-                  }
-                },
-                "executeButtonText": "Execute",
-                "noRecordExecution": true,
-                "singleRecordExecution": false
-              },
-              "status": null,
-              "top": "30",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "uuid": "45917621-34af-49c2-a689-bc700f41b235",
-              "id": 4726
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Get File",
-              "description": null,
-              "arguments": {
-                "name": "Cybereason",
-                "config": "d88b6929-235e-4543-abe3-d9fcc18f9b5f",
-                "params": {
-                  "filter.filehash": "7a5536313e3e72eaacff8b4fd0a8ba8d19b2c96c"
-                },
-                "version": "1.0.0",
-                "connector": "cybereason",
-                "operation": "query_file",
-                "operationTitle": "Query File by its Hash",
-                "pickFromTenant": false,
-                "step_variables": []
-              },
-              "status": null,
-              "top": "165",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "uuid": "39bed725-ec02-4629-9034-e70452ecc304",
-              "id": 4727
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Get Sensors",
-              "targetStep": "/api/3/workflow_steps/39bed725-ec02-4629-9034-e70452ecc304",
-              "sourceStep": "/api/3/workflow_steps/45917621-34af-49c2-a689-bc700f41b235",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "7d7320bf-74d7-4401-ad87-d129d28dedc1"
-            }
-          ],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "aa3f2407-13dd-49cd-a118-d3fb9ff8a379",
-          "recordTags": [],
-          "id": 1145,
-          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "createDate": 1624466503,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1624467899,
-          "owners": [],
-          "isPrivate": false
-        },
-        {
-          "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "UnIsolate Machine by its IP Address",
-          "aliasName": null,
-          "tag": null,
-          "description": "",
-          "isActive": true,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1624468368,
-          "collection": "/api/3/workflow_collections/be85459d-7b70-4994-b9ed-b8b4f7bda5db",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/de8c13df-d332-4f71-8431-2f6c7726aa26",
-          "steps": [
-            {
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "arguments": {
-                "route": "566b3ce1-31e5-4e5e-9fb7-a24ff4f67c6b",
-                "resources": [
-                  "assets"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "records": "{{vars.input.records}}"
-                  }
-                },
-                "executeButtonText": "Execute",
-                "noRecordExecution": true,
-                "singleRecordExecution": false
-              },
-              "status": null,
-              "top": "30",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "uuid": "de8c13df-d332-4f71-8431-2f6c7726aa26",
-              "id": 4736
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Isolate Machine",
-              "description": null,
-              "arguments": {
-                "name": "Cybereason",
-                "config": "d88b6929-235e-4543-abe3-d9fcc18f9b5f",
-                "params": {
-                  "ip_addresses": "192.168.253.222"
-                },
-                "version": "1.0.0",
-                "connector": "cybereason",
-                "operation": "unisolate_sensor_by_ip",
-                "operationTitle": "Un-Isolate Malop Machine by IP Address",
-                "pickFromTenant": false,
-                "step_variables": []
-              },
-              "status": null,
-              "top": "165",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "uuid": "0a5fb2a1-c30b-4628-a4c5-3e5b1c5f30fd",
-              "id": 4737
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Get Sensors",
-              "targetStep": "/api/3/workflow_steps/0a5fb2a1-c30b-4628-a4c5-3e5b1c5f30fd",
-              "sourceStep": "/api/3/workflow_steps/de8c13df-d332-4f71-8431-2f6c7726aa26",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "641f2614-9cf4-44a7-adfc-6085d5662648"
-            }
-          ],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "ab59863c-adc3-4083-9051-127766de88c7",
-          "recordTags": [],
-          "id": 1150,
-          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "createDate": 1624467404,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1624468368,
-          "owners": [],
-          "isPrivate": false
-        },
-        {
-          "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "Isolate Malop Machine by Pylum ID",
-          "aliasName": null,
-          "tag": null,
-          "description": "",
-          "isActive": true,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1624468286,
-          "collection": "/api/3/workflow_collections/be85459d-7b70-4994-b9ed-b8b4f7bda5db",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/73ceeaf8-875b-4fb6-8be0-220bec3e94cb",
-          "steps": [
-            {
-              "@type": "WorkflowStep",
-              "name": "Isolate Machine",
-              "description": null,
-              "arguments": {
-                "name": "Cybereason",
-                "config": "d88b6929-235e-4543-abe3-d9fcc18f9b5f",
-                "params": {
-                  "pylumIds": "PYLUMCLIENT_DAEGU_DESKTOP-VHK6KSU_000C2918A4A8"
-                },
-                "version": "1.0.0",
-                "connector": "cybereason",
-                "operation": "isolate_sensor_by_pylum_id",
-                "operationTitle": "Isolate Malop Machine by Pylum ID",
-                "pickFromTenant": false,
-                "step_variables": []
-              },
-              "status": null,
-              "top": "165",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "uuid": "37c7f28b-efed-4ef0-a9d2-8b4f631c088d",
-              "id": 4730
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "arguments": {
-                "route": "51b34168-14af-4c29-a727-0cd575d27cc7",
-                "resources": [
-                  "assets"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "records": "{{vars.input.records}}"
-                  }
-                },
-                "executeButtonText": "Execute",
-                "noRecordExecution": true,
-                "singleRecordExecution": false
-              },
-              "status": null,
-              "top": "30",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "uuid": "73ceeaf8-875b-4fb6-8be0-220bec3e94cb",
-              "id": 4731
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Get Sensors",
-              "targetStep": "/api/3/workflow_steps/37c7f28b-efed-4ef0-a9d2-8b4f631c088d",
-              "sourceStep": "/api/3/workflow_steps/73ceeaf8-875b-4fb6-8be0-220bec3e94cb",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "514cb73a-33ae-47e7-93be-4eb7d0315eb8"
-            }
-          ],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "d662f36e-6945-43d7-9be8-8b9480ef4983",
-          "recordTags": [],
-          "id": 1147,
-          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "createDate": 1624466512,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1624468286,
-          "owners": [],
-          "isPrivate": false
-        },
-        {
-          "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "Get Process",
-          "aliasName": null,
-          "tag": null,
-          "description": "",
-          "isActive": true,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1624467939,
-          "collection": "/api/3/workflow_collections/be85459d-7b70-4994-b9ed-b8b4f7bda5db",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/6d248a91-3738-4cbb-a64b-afb98a6180c7",
-          "steps": [
-            {
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "arguments": {
-                "route": "d32ae717-69b1-4e64-8958-43363d65aecd",
-                "resources": [
-                  "assets"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "records": "{{vars.input.records}}"
-                  }
-                },
-                "executeButtonText": "Execute",
-                "noRecordExecution": true,
-                "singleRecordExecution": false
-              },
-              "status": null,
-              "top": "30",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "uuid": "6d248a91-3738-4cbb-a64b-afb98a6180c7",
-              "id": 4728
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Get Process",
-              "description": null,
-              "arguments": {
-                "name": "Cybereason",
-                "config": "d88b6929-235e-4543-abe3-d9fcc18f9b5f",
-                "params": [],
-                "version": "1.0.0",
-                "connector": "cybereason",
-                "operation": "query_process",
-                "operationTitle": "Get Process On Endpoint",
-                "pickFromTenant": false,
-                "step_variables": []
-              },
-              "status": null,
-              "top": "165",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "uuid": "abcf442e-2772-4cf7-85a3-655bcff78344",
-              "id": 4729
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Get Sensors",
-              "targetStep": "/api/3/workflow_steps/abcf442e-2772-4cf7-85a3-655bcff78344",
-              "sourceStep": "/api/3/workflow_steps/6d248a91-3738-4cbb-a64b-afb98a6180c7",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "edaa2d69-e243-45dc-b8c7-db09b3f95f0c"
-            }
-          ],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "db7c122c-c6b2-4a25-b325-f69006797936",
-          "recordTags": [],
-          "id": 1146,
-          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "createDate": 1624466512,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1624467940,
-          "owners": [],
-          "isPrivate": false
-        },
-        {
-          "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "Get User",
-          "aliasName": null,
-          "tag": null,
-          "description": "",
-          "isActive": true,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1624468247,
-          "collection": "/api/3/workflow_collections/be85459d-7b70-4994-b9ed-b8b4f7bda5db",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/b18cb80e-4ee3-4d3d-b6a4-86483b359aeb",
-          "steps": [
-            {
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "arguments": {
-                "route": "e6837750-87de-4aff-a7aa-7d39a340b08d",
-                "resources": [
-                  "assets"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "records": "{{vars.input.records}}"
-                  }
-                },
-                "executeButtonText": "Execute",
-                "noRecordExecution": true,
-                "singleRecordExecution": false
-              },
-              "status": null,
-              "top": "30",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "uuid": "b18cb80e-4ee3-4d3d-b6a4-86483b359aeb",
-              "id": 4724
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Get User",
-              "description": null,
-              "arguments": {
-                "name": "Cybereason",
-                "config": "d88b6929-235e-4543-abe3-d9fcc18f9b5f",
-                "params": {
-                  "filter.username": ""
-                },
-                "version": "1.0.0",
-                "connector": "cybereason",
-                "operation": "query_user",
-                "operationTitle": "Query User",
-                "pickFromTenant": false,
-                "step_variables": []
-              },
-              "status": null,
-              "top": "165",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "uuid": "d306dade-9a26-491e-b7d5-c07c4a648f47",
-              "id": 4725
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Get Sensors",
-              "targetStep": "/api/3/workflow_steps/d306dade-9a26-491e-b7d5-c07c4a648f47",
-              "sourceStep": "/api/3/workflow_steps/b18cb80e-4ee3-4d3d-b6a4-86483b359aeb",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "a092cf6b-303e-4134-8818-c81be063aedf"
-            }
-          ],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "ff95eba2-5d8d-40dc-b8a1-d9c214b7fb94",
-          "recordTags": [],
-          "id": 1144,
-          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "createDate": 1624465767,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1624468247,
-          "owners": [],
-          "isPrivate": false
+          "recordTags": [
+            "cybereason-threat-intel",
+            "Cybereason"
+          ]
         }
       ]
     }
   ],
-  "exported_tags": []
+  "exported_tags": [
+    "cybereason-threat-intel",
+    "Cybereason"
+  ]
 }
