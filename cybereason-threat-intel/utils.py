@@ -1,27 +1,33 @@
+""" Copyright start
+  Copyright (C) 2008 - 2022 Fortinet Inc.
+  All rights reserved.
+  FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
+  Copyright end """
 from connectors.core.connector import Connector, get_logger, ConnectorError
 from netaddr import *
 
-logger = get_logger('Cybereason-Threat-Intel')
+logger = get_logger('cybereason-threat-intel')
 
-#Utils
+
 def payload_builder(params):
     '''
     Build POST JSON Body
     '''
-    payload = {'requestData':[]}
+    payload = {'requestData': []}
     operation = params.get('operation')
     keys = params.get('keys')
     keys = keys.split(',') if ',' in keys else [keys]
-    if isinstance(keys,list):
+    if isinstance(keys, list):
         for item in keys:
             if operation == 'file_batch':
                 payload['requestData'].append({"requestKey": {resolve_hash_type(item): item}})
             elif operation == 'ip_batch':
-                payload['requestData'].append({"requestKey": {'ipAddress': item,'addressType': validate_ip(item)}})
+                payload['requestData'].append({"requestKey": {'ipAddress': item, 'addressType': validate_ip(item)}})
             elif operation == 'domain_batch':
                 payload['requestData'].append({"requestKey": {"domain": item}})
 
     return payload
+
 
 def resolve_hash_type(hash):
     '''
