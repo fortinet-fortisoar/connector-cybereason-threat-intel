@@ -1,12 +1,16 @@
-""" Operations """
+""" Copyright start
+  Copyright (C) 2008 - 2022 Fortinet Inc.
+  All rights reserved.
+  FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
+  Copyright end """
 from .utils import *
 from connectors.core.connector import get_logger, ConnectorError
 
 import requests
 import logging
 
-logger = get_logger('Cybereason-Threat-Intel')
-logger.setLevel(logging.DEBUG)# Comment for prod
+logger = get_logger('cybereason-threat-intel')
+
 
 class CybereasonTIMC(object):
     def __init__(self, config):
@@ -22,7 +26,7 @@ class CybereasonTIMC(object):
         if self.url_auth[-1] == '/':
             self.url_auth = self.url_auth[:-1]
         self.username = config['username']
-        self.password = config['password']        
+        self.password = config['password']
         self.verify_ssl = config['verify_ssl']
         self.headers = {
             'Content-Type': 'application/json',
@@ -31,13 +35,11 @@ class CybereasonTIMC(object):
         self.session = requests.session()
         self.login()
 
-
     def close(self):
         '''
         Closes the session before exit
         '''
-        return self.make_rest_call(endpoint='/logout',method='GET')
-
+        return self.make_rest_call(endpoint='/logout', method='GET')
 
     def login(self):
         '''
@@ -54,8 +56,7 @@ class CybereasonTIMC(object):
         }
         return self.make_rest_call(endpoint='/login.html', data=data, headers=headers)
 
-
-    def make_rest_call(self, endpoint, json=None,data=None,headers=None,params=None,method='POST'):
+    def make_rest_call(self, endpoint, json=None, data=None, headers=None, params=None, method='POST'):
         '''
         Requests wrapper
         '''
@@ -67,26 +68,27 @@ class CybereasonTIMC(object):
                                             json=json,
                                             data=data,
                                             params=params,
-                                            #proxies={'https':'http://127.0.0.1:8080'}, # debug requests via mitmproxy
+                                            # proxies={'https':'http://127.0.0.1:8080'}, # debug requests via mitmproxy
                                             verify=self.verify_ssl)
 
             if response.status_code in [200]:
                 try:
                     response_data = response.json()
-                    return {'status': response_data['status'] if 'status' in response_data else 'Success', 'data': response_data}
+                    return {'status': response_data['status'] if 'status' in response_data else 'Success',
+                            'data': response_data}
                 except Exception as e:
                     response_data = response.content
-                    return {'status':'Failure','data':response_data}
+                    return {'status': 'Failure', 'data': response_data}
 
             else:
-                raise ConnectorError({'status':'Failure','status_code':str(response.status_code),'response':response.content})
+                raise ConnectorError(
+                    {'status': 'Failure', 'status_code': str(response.status_code), 'response': response.content})
 
         except Exception as e:
             logger.exception('{}'.format(e))
             raise ConnectorError('{}'.format(e))
 
-
-    def query_threat_intel(self,params):
+    def query_threat_intel(self, params):
         '''
         Returns details on a file’s reputation based on the Cybereason threat intelligence service
         test: 9e278e68b86e509c3ad62223f2fe1c1b
@@ -99,38 +101,33 @@ class CybereasonTIMC(object):
         endpoint = '/rest/classification_v1/{}'.format(operation)
         return self.make_rest_call(endpoint=endpoint, json=json_body)
 
-
-    def file_batch(self,params):
+    def file_batch(self, params):
         '''
         Returns details on a file’s reputation based on the Cybereason threat intelligence service
         '''
         return self.query_threat_intel(params)
 
-
-    def ip_batch(self,params):
+    def ip_batch(self, params):
         '''
         Returns details on IP address reputations based on the Cybereason threat intelligence service
         '''
         return self.query_threat_intel(params)
 
-
-    def domain_batch(self,params):
+    def domain_batch(self, params):
         '''
         Returns details on domain reputations based on the Cybereason threat intelligence service
         '''
         return self.query_threat_intel(params)
 
 
-
-
-def _run_operation(config,params):
+def _run_operation(config, params):
     '''
     Map operations to CybereasonTI methods
     '''
     operation = params['operation']
     cr_object = CybereasonTIMC(config)
-    command = getattr(CybereasonTIMC,operation)
-    response = command(cr_object,params)
+    command = getattr(CybereasonTIMC, operation)
+    response = command(cr_object, params)
     cr_object.close()
     return response
 
@@ -147,4 +144,4 @@ def _check_health(config):
 
     except Exception as Err:
         logger.exception('Health Check Error:{}'.format(Err))
-        raise ConnectorError('Health Check Error:{}'.format(Err))    
+        raise ConnectorError('Health Check Error:{}'.format(Err))
