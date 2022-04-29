@@ -66,7 +66,7 @@
             }
           ],
           "triggerLimit": null,
-          "description": "Returns details on a file\u2019s reputation based on the Cybereason threat intelligence service",
+          "description": "Returns details of the reputation of a specified file based on the Cybereason's threat intelligence service.",
           "name": "Get File Reputation",
           "tag": "#Cybereason Threat Intel",
           "isActive": false,
@@ -146,7 +146,7 @@
             }
           ],
           "triggerLimit": null,
-          "description": "Returns details on IP address reputations based on the Cybereason threat intelligence service",
+          "description": "Returns details of the reputation of a specified IP address based on the Cybereason's threat intelligence service.",
           "name": "Get IP Reputation",
           "tag": "#Cybereason Threat Intel",
           "isActive": false,
@@ -226,7 +226,7 @@
             }
           ],
           "triggerLimit": null,
-          "description": "Returns details on domain reputations based on the Cybereason threat intelligence service",
+          "description": "Returns details of the reputation of a specified domain based on the Cybereason's threat intelligence service.",
           "name": "Get Domain Reputation",
           "tag": "#Cybereason Threat Intel",
           "isActive": false,
