@@ -8,7 +8,7 @@
   "active": true,
   "cs_compatible": true,
   "system": false,
-  "help_online": "",
+  "help_online": "https://docs.fortinet.com/document/fortisoar/1.0.0/cybereason-threat-intel/269/cybereason-threat-intel-v1-0-0",
   "icon_small_name": "cybereason_Threat_Intel_32x32.png",
   "icon_large_name": "cybereason_Threat_Intel_80x80.png",
   "configuration": {
@@ -16,7 +16,7 @@
       {
         "title": "Cybereason Server URL",
         "name": "server",
-        "description": "Cybereason Server URL",
+        "description": "URL of the Cybereason server to which you will connect and perform the automated operations.",
         "required": true,
         "editable": true,
         "visible": true,
@@ -26,7 +26,7 @@
       {
         "title": "Cybereason Threat Intel URL",
         "name": "threat_intel_server",
-        "description": "Cybereason Threat Intel IP/Url",
+        "description": "IP address or URL of the Cybereason Threat Intel service to which you will connect and perform the automated operations.",
         "required": true,
         "editable": true,
         "visible": true,
@@ -36,7 +36,7 @@
       {
         "title": "Username",
         "name": "username",
-        "description": "Cybereason Username",
+        "description": "The username used to access the Cybereason server to which you will connect and perform the automated operations. ",
         "required": true,
         "editable": true,
         "visible": true,
@@ -46,7 +46,7 @@
       {
         "title": "Password",
         "name": "password",
-        "description": "Cybereason Password",
+        "description": "The password used to access the Cybereason server to which you will connect and perform the automated operations.",
         "required": true,
         "editable": true,
         "visible": true,
@@ -55,6 +55,7 @@
       {
         "title": "Verify SSL",
         "name": "verify_ssl",
+        "description": "Specifies whether the SSL certificate for the server is to be verified or not.",
         "required": false,
         "editable": true,
         "visible": true,
@@ -66,7 +67,7 @@
     {
       "operation": "file_batch",
       "title": "Get File Reputation",
-      "description": "Returns details on a file’s reputation based on the Cybereason threat intelligence service",
+      "description": "Returns details of the reputation of a specified file based on the Cybereason's threat intelligence service.",
       "category": "enrichment",
       "annotation": "file_batch",
       "output_schema": {},
@@ -74,7 +75,7 @@
       "parameters": [
         {
           "title": "File Hash",
-          "description": "File hash(s), md5 or sha1",
+          "description": "Specify the file hash(es), in the MD5 or SHA1 format, whose reputation information you want to retrieve from Cybereason's threat intelligence service.",
           "required": true,
           "visible": true,
           "editable": true,
@@ -87,7 +88,7 @@
     {
       "operation": "ip_batch",
       "title": "Get IP Reputation",
-      "description": "Returns details on IP address reputations based on the Cybereason threat intelligence service",
+      "description": "Returns details of the reputation of a specified IP address based on the Cybereason's threat intelligence service.",
       "category": "enrichment",
       "annotation": "ip_batch",
       "output_schema": {},
@@ -95,7 +96,7 @@
       "parameters": [
         {
           "title": "IP Address",
-          "description": "IP Address in ipv4 or ipv6",
+          "description": "Specify the IP address, either IPv4 or IPv6, whose reputation information you want to retrieve from Cybereason's threat intelligence service.",
           "required": true,
           "visible": true,
           "editable": true,
@@ -108,7 +109,7 @@
     {
       "operation": "domain_batch",
       "title": "Get Domain Reputation",
-      "description": "Returns details on domain reputations based on the Cybereason threat intelligence service",
+      "description": "Returns details of the reputation of a specified domain based on the Cybereason's threat intelligence service.",
       "category": "enrichment",
       "annotation": "domain_batch",
       "output_schema": {},
@@ -116,7 +117,7 @@
       "parameters": [
         {
           "title": "Domain Name",
-          "description": "Domain Name",
+          "description": "Specify the name of the domain whose reputation information you want to retrieve from Cybereason's threat intelligence service.",
           "required": true,
           "visible": true,
           "editable": true,
